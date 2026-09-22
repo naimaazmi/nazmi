@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor Bahasa Indonesia Naima H</title>
+    <style>
+        /* =========================================================
+           FONT GLOBAL: TIMES NEW ROMAN
+           ========================================================= */
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body, p, div, span, label, button, textarea, input, h1, h2, h3, h4, li {
+            font-family: 'Times New Roman', Times, serif !important;
+        }
+
+        /* Background Soft Pink dengan Siluet Bunga Sakura & Mawar */
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            background-color: #fdf2f6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.75) 0%, transparent 45%),
+                radial-gradient(circle at 90% 85%, rgba(252, 228, 236, 0.8) 0%, transparent 45%),
+                url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23f06292' stroke-width='0.9' stroke-opacity='0.22'%3E%3Cpath d='M90,30 C75,5 40,15 45,45 C15,40 10,75 35,90 C15,115 45,145 70,125 C85,155 120,145 115,115 C145,120 155,85 130,70 C150,40 120,15 90,30 Z'/%3E%3Cpath d='M90,48 C80,30 55,38 58,60 C38,58 35,82 52,92 C38,110 60,130 78,118 C88,138 112,130 110,110 C130,112 138,88 120,78 C132,58 110,38 90,48 Z'/%3E%3Ccircle cx='90' cy='85' r='6' stroke='%23ad1457' stroke-opacity='0.3'/%3E%3Cpath d='M90,91 Q90,145 60,170' stroke='%23ec407a' stroke-opacity='0.25' stroke-linecap='round'/%3E%3Cpath d='M88,115 Q120,110 135,128 C135,128 118,138 90,125' stroke='%23f48fb1' stroke-opacity='0.22'/%3E%3Cpath d='M75,138 Q45,135 35,152 C35,152 55,156 70,145' stroke='%23f48fb1' stroke-opacity='0.22'/%3E%3Cpath d='M15,20 Q30,10 40,30' stroke='%23f48fb1' stroke-opacity='0.18'/%3E%3Cpath d='M160,15 Q145,30 165,45' stroke='%23f48fb1' stroke-opacity='0.18'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-attachment: fixed;
+            color: #3b1f2b;
+        }
+
+        .main-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+        /* Badge Sapaan */
+        .greeting-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #f8bbd0;
+            padding: 6px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            color: #ad1457;
+            font-style: italic;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(244, 143, 177, 0.2);
+        }
+
+        /* Header Banner */
+        .hero-banner {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border: 2px solid #f48fb1;
+            border-radius: 24px;
+            padding: 24px 30px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .main-title {
+            font-size: 2.3rem;
+            font-weight: bold;
+            color: #880e4f;
+            line-height: 1.15;
+            margin: 0 0 8px 0;
+        }
+
+        .main-desc {
+            font-size: 1.05rem;
+            line-height: 1.55;
+            color: #5c3543;
+            margin: 0;
+        }
+
+        /* Tag Keunggulan */
+        .tag-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .tag-item {
+            background: #fce4ec;
+            border: 1px solid #f48fb1;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #ad1457;
+        }
+
+        /* Grid System */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        /* Kartu Ringkasan Metrik */
+        .metric-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1.5px solid #f8bbd0;
+            border-radius: 18px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(240, 98, 146, 0.08);
+        }
+
+        .metric-num {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #9c2748;
+            margin: 0;
+        }
+
+        .metric-info {
+            font-size: 0.92rem;
+            color: #6a3e50;
+            margin: 4px 0 0 0;
+        }
+
+        /* Judul Bagian */
+        .section-headline {
+            font-size: 1.85rem;
+            font-weight: bold;
+            color: #7b113a;
+            margin-top: 35px;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .section-subtext {
+            font-size: 1rem;
+            color: #6a4050;
+            text-align: center;
+            margin-bottom: 22px;
+            font-style: italic;
+        }
+
+        /* Kartu Informasi */
+        .card-info {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1.5px solid #f48fb1;
+            border-left: 6px solid #ad1457;
+            border-radius: 16px;
+            padding: 16px 22px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 14px rgba(244, 143, 177, 0.12);
+        }
+
+        .card-info-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #880e4f;
+            margin-bottom: 6px;
+        }
+
+        .card-info-desc {
+            font-size: 0.98rem;
+            color: #4a2534;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Kartu Materi & Tombol */
+        .topic-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1.5px solid #f8bbd0;
+            border-radius: 18px 18px 0 0;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(240, 98, 146, 0.05);
+        }
+
+        .topic-name {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #880e4f;
+        }
+
+        .item-materi {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        /* Tombol Utama & Aksesibilitas */
+        .btn-primary {
+            background: linear-gradient(135deg, #a63a58 0%, #7d1c37 100%);
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 22px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(125, 28, 55, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #bd4b6c 0%, #912443 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-materi {
+            background: linear-gradient(135deg, #a63a58 0%, #7d1c37 100%);
+            color: #ffffff;
+            font-size: 0.98rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 0 0 18px 18px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-materi:hover {
+            background: linear-gradient(135deg, #bd4b6c 0%, #912443 100%);
+        }
+
+        .daftar-materi-button-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 12px 20px;
+            border: 2px solid #f4a6c1;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.96);
+            color: #880e4f;
+            font-size: 1.12rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(240, 98, 146, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .daftar-materi-button-btn:hover {
+            border-color: #ec407a;
+            color: #7b113a;
+            background: #fff7fa;
+        }
+
+        /* Text Area */
+        textarea.custom-textarea {
+            width: 100%;
+            height: 120px;
+            background-color: #ffffff;
+            border: 2px solid #f48fb1;
+            border-radius: 18px;
+            padding: 16px;
+            font-size: 1.05rem;
+            color: #2b1720;
+            box-shadow: 0 4px 15px rgba(244, 143, 177, 0.18);
+            outline: none;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        textarea.custom-textarea:focus {
+            border-color: #ad1457;
+            box-shadow: 0 4px 20px rgba(173, 20, 87, 0.3);
+        }
+
+        /* Kotak Pesan / Alert */
+        .alert-box {
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 1rem;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+
+        .alert-info {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            border: 1px solid #90caf9;
+        }
+
+        .alert-warning {
+            background-color: #fff3e0;
+            color: #e65100;
+            border: 1px solid #ffe0b2;
+        }
+
+        /* Responsif untuk Layar Kecil */
+        @media (max-width: 600px) {
+            .hero-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .grid-aksi {
+                flex-direction: column;
+            }
+        }
+
+        .grid-aksi {
+            display: flex;
+            gap: 10px;
+        }
+        .flex-3 { flex: 3; }
+        .flex-1 { flex: 1; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <!-- 1. HEADER UTAMA -->
+    <div class="greeting-pill">
+        <span>🌸</span> Selamat Datang • Mari Mengasah Bahasa Bersama Hari Ini ✨
+    </div>
+
+    <div class="hero-banner">
+        <div style="flex-shrink: 0; width: 100px; height: 100px;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="pinkHead" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ff80ab;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#f06292;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="bodyG" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#fce4ec;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="11" r="5.5" fill="#ec407a" />
+                <path d="M50 16 L50 24" stroke="#ec407a" stroke-width="3" stroke-linecap="round"/>
+                <rect x="22" y="24" width="56" height="42" rx="18" fill="url(#pinkHead)"/>
+                <rect x="28" y="30" width="44" height="30" rx="10" fill="#2d132c"/>
+                <circle cx="40" cy="45" r="4.5" fill="#ff4081" />
+                <circle cx="60" cy="45" r="4.5" fill="#ff4081" />
+                <circle cx="41.5" cy="43.5" r="1.5" fill="#ffffff" />
+                <circle cx="61.5" cy="43.5" r="1.5" fill="#ffffff" />
+                <ellipse cx="34" cy="51" rx="3.5" ry="1.8" fill="#f48fb1"/>
+                <ellipse cx="66" cy="51" rx="3.5" ry="1.8" fill="#f48fb1"/>
+                <path d="M47 51 Q50 54 53 51" stroke="#ff80ab" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                <rect x="15" y="37" width="7" height="16" rx="3" fill="#f48fb1"/>
+                <rect x="78" y="37" width="7" height="16" rx="3" fill="#f48fb1"/>
+                <rect x="33" y="69" width="34" height="25" rx="10" fill="url(#bodyG)" stroke="#f8bbd0" stroke-width="2"/>
+                <circle cx="50" cy="80" r="4.5" fill="#ec407a"/>
+                <rect x="20" y="71" width="10" height="16" rx="5" fill="#f8bbd0" />
+                <rect x="70" y="71" width="10" height="16" rx="5" fill="#f8bbd0" />
+            </svg>
+        </div>
+        <div>
+            <h1 class="main-title">AI Tutor Bahasa Indonesia Naima H</h1>
+            <p class="main-desc">
+                Mendalami seluk-beluk kaidah Bahasa Indonesia kini terasa lebih ringan, terstruktur, serta komunikatif. 
+                Terhubung otomatis dengan seluruh arsip kebahasaan Anda yang tersimpan di dalam basis data.
+            </p>
+            <div class="tag-wrapper">
+                <span class="tag-item" id="tag-total-materi">📚 9 Rumpun Materi Tersedia</span>
+                <span class="tag-item">🎯 Sinkronisasi Otomatis</span>
+                <span class="tag-item">🤖 Asisten Interaktif</span>
+                <span class="tag-item">🧠 AI Pembelajaran Cerdas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. METRIK TIGA KOLOM -->
+    <div class="grid-3">
+        <div class="metric-card">
+            <div class="metric-num" id="metric-total-materi">📖 9 Materi Terintegrasi</div>
+            <div class="metric-info">Siap dipelajari dan dianalisis.</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-num">💭 Ruang Konsultasi</div>
+            <div class="metric-info">Eksplorasi konsep tata bahasa & sastra.</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-num">🔍 Deteksi Cerdas</div>
+            <div class="metric-info">Otomatis sinkron dengan arsip materi.</div>
+        </div>
+    </div>
+
+    <!-- 3. DAFTAR MATERI OTOMATIS -->
+    <div class="section-headline">❧ Pustaka Materi Pembelajaran ☙</div>
+    <div class="section-subtext">Klik bagian di bawah untuk melihat materi yang tersedia:</div>
+
+    <div style="margin-bottom: 20px;">
+        <button id="btn-toggle-materi" class="daftar-materi-button-btn" onclick="toggleDaftarMateri()">
+            📚 Lihat Daftar Materi (9 materi tersedia)
+        </button>
+    </div>
+
+    <div id="wrapper-daftar-materi" class="hidden">
+        <p style="color:#6a4050; margin: 10px 0 15px 0;">
+            Pilih salah satu materi untuk membuka isi dan contoh pertanyaannya.
+        </p>
+        <div class="grid-2" id="container-materi">
+            <!-- Kartu materi akan terisi otomatis oleh JS -->
+        </div>
+    </div>
+
+    <!-- 4. INFORMASI DINAMIS BERDASARKAN DATABASE -->
+    <div class="card-info">
+        <div class="card-info-title">🔥 Pertanyaan yang Kerap Muncul</div>
+        <div class="card-info-desc" id="container-faq">
+            <!-- FAQ terisi otomatis -->
+        </div>
+    </div>
+
+    <div class="card-info">
+        <div class="card-info-title">✨ Panduan Bertanya Efektif</div>
+        <div class="card-info-desc" id="container-panduan">
+            <!-- Panduan terisi otomatis -->
+        </div>
+    </div>
+
+    <!-- 5. FORMULIR TANYA JAWAB UTAMA -->
+    <div class="card-info" style="margin-top: 25px; border-left-color: #7b113a;">
+        <div class="card-info-title">💬 Ajukan Pertanyaan kepada AI Tutor</div>
+        <div class="card-info-desc">
+            Tuliskan konsep atau pertanyaan kebahasaan Anda. AI Tutor Naima H akan menelusuri data materi yang bersesuaian.
+        </div>
+    </div>
+
+    <textarea id="input-pertanyaan" class="custom-textarea" placeholder="Ketik pertanyaan atau konsep kebahasaan yang ingin Anda pelajari..."></textarea>
+
+    <div class="grid-aksi">
+        <div class="flex-3">
+            <button class="btn-primary" onclick="ajukanPertanyaan()">➤ AJUKAN SEKARANG</button>
+        </div>
+        <div class="flex-1">
+            <button class="btn-primary" style="background: linear-gradient(135deg, #757575 0%, #424242 100%);" onclick="bersihkanForm()">🔄 Bersihkan</button>
+        </div>
+    </div>
+
+    <!-- Kotak Hasil Jawaban -->
+    <div id="container-jawaban" class="hidden">
+        <div class="card-info" style="background:#fffafc; border-left-color:#2e7d32; margin-top:20px;">
+            <div class="card-info-title" style="color:#2e7d32;">📖 Uraian Materi / Jawaban Tutor Naima H</div>
+        </div>
+        <div id="teks-jawaban" class="alert-box alert-info"></div>
+    </div>
+
+    <!-- 6. PENUTUP -->
+    <div class="card-info" style="margin-top: 30px; background: #fae4ec; border: 1.5px dashed #ad1457; text-align: center;">
+        <div class="card-info-title">🌱 Terus Asah Kemampuan Bahasa Bersama AI Tutor Naima H 🌸</div>
+        <div class="card-info-desc">
+            “Belajar menjadi lebih bermakna ketika setiap materi membuka ruang untuk bertanya, memahami, dan berkembang.”
+        </div>
+    </div>
+
+</div>
+
+<!-- ----------------- JAVASCRIPT LOGIC ----------------- -->
+<script>
+    // Data tiruan basis data materi (.txt)
+    const DATA_MATERI = [
+        {
+            nama: "Sastra",
+            ikon: "📖",
+            contoh_tanya: "Bagaimana pendekatan struktural dan resepsi sastra dalam membedah karya sastra modern?",
+            konten: "Materi Sastra: Mengkaji teori sastra, pendekatan strukturalisme, semiotika, serta sejarah sastra Indonesia modern."
+        },
+        {
+            nama: "Apresiasi",
+            ikon: "✍️",
+            contoh_tanya: "Apa langkah-langkah konkret dalam mengapresiasi dan menganalisis teks puisi serta prosa?",
+            konten: "Materi Apresiasi: Membahas penikmatan, pemahaman, dan penilaian karya seni puisi, cerpen, novel, dan drama."
+        },
+        {
+            nama: "Dasar Bahasa Indonesia",
+            ikon: "🎙️",
+            contoh_tanya: "Jelaskan hakikat, fungsi, dan ragam kedudukan Bahasa Indonesia sebagai bahasa nasional!",
+            konten: "Materi Dasar: Mengulas sejarah Bahasa Indonesia, fungsi bahasa nasional, serta ragam baku dan non-baku."
+        },
+        {
+            nama: "Ejaan",
+            ikon: "🧩",
+            contoh_tanya: "Bagaimana kaidah penggunaan tanda baca koma, titik dua, dan penulisan huruf kapital sesuai pedoman baku?",
+            konten: "Materi Ejaan (EYD/PUEBI): Tata cara penggunaan huruf kapital, cetak miring, tanda baca, dan kata serapan."
+        },
+        {
+            nama: "Keterampilan Berbahasa",
+            ikon: "📜",
+            contoh_tanya: "Bagaimana korelasi antara keterampilan menyimak kritis dengan kemampuan berbicara dialektis?",
+            konten: "Materi Keterampilan Berbahasa: Menyimak, berbicara, membaca, dan menulis secara terpadu."
+        },
+        {
+            nama: "Morfologi",
+            ikon: "🌐",
+            contoh_tanya: "Jelaskan perbedaan proses morfologis pembentukan afiksasi prefiks, infiks, sufiks, dan konfiks!",
+            konten: "Materi Morfologi: Pembentukan kata, imbuhan (afiksasi), pengulangan (reduplikasi), dan pemajemukan."
+        },
+        {
+            nama: "Semantik",
+            ikon: "📐",
+            contoh_tanya: "Bagaimana cara menganalisis pergeseran makna peyorasi, ameliorasi, dan konotatif dalam wacana?",
+            konten: "Materi Semantik: Makna denotatif, konotatif, sinestesia, asosiasi, peyorasi, dan ameliorasi."
+        },
+        {
+            nama: "Sintaksis",
+            ikon: "🎭",
+            contoh_tanya: "Jelaskan fungsi sintaksis subjek, predikat, objek, dan pelengkap dalam kalimat majemuk bertingkat!",
+            konten: "Materi Sintaksis: Tata kalimat, struktur SPOK, klausa, serta jenis kalimat tunggal dan majemuk."
+        },
+        {
+            nama: "Wacana",
+            ikon: "💡",
+            contoh_tanya: "Bagaimana peranan kohesi gramatikal dan koherensi leksikal dalam menyusun paragraf wacana yang utuh?",
+            konten: "Materi Wacana: Kohesi dan koherensi teks, analisis wacana kritis, serta struktur paragraf."
+        }
+    ];
+
+    let tampilkanDaftar = false;
+
+    // Inisialisasi Tampilan
+    window.onload = function() {
+        muatMetrikDanTag();
+        renderDaftarMateri();
+        renderFAQ();
+        renderPanduan();
+    };
+
+    function muatMetrikDanTag() {
+        const total = DATA_MATERI.length;
+        document.getElementById("tag-total-materi").innerText = `📚 ${total} Rumpun Materi Tersedia`;
+        document.getElementById("metric-total-materi").innerText = `📖 ${total} Materi Terintegrasi`;
+        document.getElementById("btn-toggle-materi").innerText = `📚 Lihat Daftar Materi (${total} materi tersedia)`;
+    }
+
+    function toggleDaftarMateri() {
+        tampilkanDaftar = !tampilkanDaftar;
+        const wrapper = document.getElementById("wrapper-daftar-materi");
+        const btn = document.getElementById("btn-toggle-materi");
+        const total = DATA_MATERI.length;
+
+        if (tampilkanDaftar) {
+            wrapper.classList.remove("hidden");
+            btn.innerText = `📚 Sembunyikan Daftar Materi (${total} materi tersedia)`;
+        } else {
+            wrapper.classList.add("hidden");
+            btn.innerText = `📚 Lihat Daftar Materi (${total} materi tersedia)`;
+        }
+    }
+
+    function renderDaftarMateri() {
+        const container = document.getElementById("container-materi");
+        container.innerHTML = "";
+
+        DATA_MATERI.forEach((item, idx) => {
+            const div = document.createElement("div");
+            div.className = "item-materi";
+            div.innerHTML = `
+                <div class="topic-card">
+                    <div class="topic-name">${item.ikon} ${item.nama}</div>
+                </div>
+                <button class="btn-materi" onclick="pilihMateri(${idx})">📖 Pelajari ${item.nama}</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function pilihMateri(index) {
+        const item = DATA_MATERI[index];
+        document.getElementById("input-pertanyaan").value = item.contoh_tanya;
+        
+        // Tampilkan Jawaban/Materi Langsung
+        const containerJawaban = document.getElementById("container-jawaban");
+        const teksJawaban = document.getElementById("teks-jawaban");
+        
+        teksJawaban.className = "alert-box alert-info";
+        teksJawaban.innerText = item.konten;
+        containerJawaban.classList.remove("hidden");
+
+        // Scroll halus ke kolom input
+        document.getElementById("input-pertanyaan").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderFAQ() {
+        const container = document.getElementById("container-faq");
+        let html = "";
+        DATA_MATERI.slice(0, 6).forEach(materi => {
+            html += `• Apa konsep utama yang perlu dipahami dalam materi ${materi.nama}?<br>`;
+            html += `• Bagaimana contoh penerapan konsep pada materi ${materi.nama}?<br>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function renderPanduan() {
+        const container = document.getElementById("container-panduan");
+        const namaMateri = DATA_MATERI.slice(0, 5).map(m => m.nama).join(", ");
+        
+        let html = `✓ Gunakan nama materi secara spesifik, misalnya: ${namaMateri}.<br>`;
+        html += `✓ Tanyakan satu konsep utama dalam satu pertanyaan agar jawaban lebih terarah.<br>`;
+        html += `✓ Tambahkan permintaan contoh, perbandingan, langkah analisis, atau rangkuman sesuai kebutuhan.<br>`;
+        
+        if (DATA_MATERI.length > 5) {
+            html += `✓ Database memuat ${DATA_MATERI.length} materi; pilih topik yang paling sesuai dari daftar materi.`;
+        }
+        
+        container.innerHTML = html;
+    }
+
+    function ajukanPertanyaan() {
+        const input = document.getElementById("input-pertanyaan").value.trim();
+        const containerJawaban = document.getElementById("container-jawaban");
+        const teksJawaban = document.getElementById("teks-jawaban");
+
+        if (input !== "") {
+            teksJawaban.className = "alert-box alert-info";
+            teksJawaban.innerText = `Uraian untuk topik kajian: "${input}"\n\nSistem telah menganalisis materi aktif dari basis data Anda untuk memaparkan penjabaran yang relevan.`;
+            containerJawaban.classList.remove("hidden");
+        } else {
+            teksJawaban.className = "alert-box alert-warning";
+            teksJawaban.innerText = "Silakan tuliskan pertanyaan terlebih dahulu ya! 💕";
+            containerJawaban.classList.remove("hidden");
+        }
+    }
+
+    function bersihkanForm() {
+        document.getElementById("input-pertanyaan").value = "";
+        document.getElementById("container-jawaban").classList.add("hidden");
+        document.getElementById("teks-jawaban").innerText = "";
+    }
+</script>
+
+</body>
+</html>
